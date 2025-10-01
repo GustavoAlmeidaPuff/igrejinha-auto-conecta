@@ -50,18 +50,18 @@ const Hero = () => {
           </div>
 
           {/* Trust Badge */}
-          <div className="pt-8 flex flex-wrap justify-center gap-8 text-primary-foreground/90">
+          <div className="pt-8 flex flex-wrap justify-center gap-8">
             <div className="text-center">
-              <div className="text-3xl font-bold text-accent">15+</div>
-              <div className="text-sm">Anos de Experiência</div>
+              <div className="text-3xl font-bold text-accent drop-shadow-lg">15+</div>
+              <div className="text-sm font-semibold text-primary-foreground drop-shadow-md">Anos de Experiência</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-accent">100%</div>
-              <div className="text-sm">Satisfação</div>
+              <div className="text-3xl font-bold text-accent drop-shadow-lg">100%</div>
+              <div className="text-sm font-semibold text-primary-foreground drop-shadow-md">Satisfação</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-accent">1000+</div>
-              <div className="text-sm">Clientes Atendidos</div>
+              <div className="text-3xl font-bold text-accent drop-shadow-lg">1000+</div>
+              <div className="text-sm font-semibold text-primary-foreground drop-shadow-md">Clientes Atendidos</div>
             </div>
           </div>
         </div>
