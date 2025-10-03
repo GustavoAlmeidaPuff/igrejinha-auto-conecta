@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import work1 from "@/assets/work-1.jpg";
 import work2 from "@/assets/work-2.jpg";
 import work3 from "@/assets/work-3.jpg";
@@ -21,6 +22,37 @@ const works = [
 ];
 
 const Portfolio = () => {
+  const [visibleItems, setVisibleItems] = useState<boolean[]>([false, false, false]);
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const observers = itemRefs.current.map((ref, index) => {
+      if (!ref) return null;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setVisibleItems((prev) => {
+                const newState = [...prev];
+                newState[index] = true;
+                return newState;
+              });
+            }
+          });
+        },
+        { threshold: 0.2 }
+      );
+
+      observer.observe(ref);
+      return observer;
+    });
+
+    return () => {
+      observers.forEach((observer) => observer?.disconnect());
+    };
+  }, []);
+
   return (
     <section className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
@@ -37,9 +69,14 @@ const Portfolio = () => {
           {works.map((work, index) => (
             <div
               key={index}
+              ref={(el) => (itemRefs.current[index] = el)}
               className={`flex flex-col ${
                 index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
-              } gap-8 items-center bg-card rounded-2xl overflow-hidden shadow-lg hover:shadow-[0_10px_40px_-10px_hsl(var(--primary)/0.3)] transition-shadow duration-300`}
+              } gap-8 items-center bg-card rounded-2xl overflow-hidden shadow-lg hover:shadow-[0_10px_40px_-10px_hsl(var(--primary)/0.3)] transition-all duration-700 ${
+                visibleItems[index]
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-10"
+              }`}
             >
               {/* Image */}
               <div className="w-full lg:w-1/2">
